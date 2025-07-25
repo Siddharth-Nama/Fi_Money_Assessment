@@ -52,7 +52,7 @@ export const addProduct = async (payload: { name: string; type: string; sku: str
 };
 
 export const UpdateProductQuantity = async (id: number, quantity: number) => {
-  return api.patch(`/api/products/${id}/`, { quantity }, {
+  return api.patch(`/api/products/${id}/quantity/`, { quantity }, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
