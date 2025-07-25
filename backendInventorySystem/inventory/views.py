@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from .models import *
 from .serializers import *
 from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
 
 class LoginView(APIView):
     def post(self, request):
@@ -87,3 +88,15 @@ class UpdateProductQuantityView(APIView):
             "quantity": product.quantity,
             "message": "Quantity updated successfully"
         }, status=status.HTTP_200_OK)
+    
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 50
+
+class ProductListView(generics.ListAPIView):
+    queryset = Product.objects.all().order_by('id')
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = StandardResultsSetPagination

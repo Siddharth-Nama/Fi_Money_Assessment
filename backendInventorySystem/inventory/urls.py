@@ -7,4 +7,5 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('products/', ProductCreateView.as_view(), name='add-product'),
     path('products/<int:pk>/quantity/', UpdateProductQuantityView.as_view(), name='update-quantity'),
+    path('products/', ProductListView.as_view(), name='get-products'),
 ]
