@@ -45,64 +45,40 @@ const ProductList = () => {
   }, []);
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial" }}>
-      <h2>Product List</h2>
-      <button
-        onClick={() => navigate("/add")}
-        style={{
-          marginRight: "10px",
-          background: "#2196F3",
-          color: "white",
-          padding: "10px",
-          border: "none",
-          borderRadius: "5px",
-        }}
-      >
-        + Add Product
-      </button>
+    <div style={styles.container}>
+      <div style={styles.header}>
+        <h2 style={styles.title}>Inventory Dashboard</h2>
+        <div>
+          <button style={styles.addBtn} onClick={() => navigate("/add")}>+ Add Product</button>
+          <button style={styles.logoutBtn} onClick={handleLogout}>Logout</button>
+        </div>
+      </div>
 
-      <button
-        onClick={handleLogout}
-        style={{
-          float: "right",
-          background: "#f44336",
-          color: "white",
-          padding: "10px",
-          border: "none",
-          borderRadius: "5px",
-        }}
-      >
-        Logout
-      </button>
-      {message && <p>{message}</p>}
-      <table
-        style={{ width: "100%", marginTop: "1rem", borderCollapse: "collapse" }}
-      >
+      {message && <p style={styles.error}>{message}</p>}
+
+      <table style={styles.table}>
         <thead>
-          <tr style={{ borderBottom: "1px solid #ccc" }}>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>SKU</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Actions</th>
+          <tr style={styles.theadRow}>
+            <th style={styles.th}>ID</th>
+            <th style={styles.th}>Name</th>
+            <th style={styles.th}>Type</th>
+            <th style={styles.th}>SKU</th>
+            <th style={styles.th}>Quantity</th>
+            <th style={styles.th}>Price</th>
+            <th style={styles.th}>Actions</th>
           </tr>
         </thead>
         <tbody>
           {products.map((p) => (
-            <tr key={p.id} style={{ borderBottom: "1px solid #eee" }}>
-              <td>{p.id}</td>
-              <td>{p.name}</td>
-              <td>{p.type}</td>
-              <td>{p.sku}</td>
-              <td>{p.quantity}</td>
-              <td>₹{p.price}</td>
-              <td>
-                <button
-                  style={{ marginLeft: "10px", padding: "5px 10px" }}
-                  onClick={() => navigate(`/update/${p.id}`)}
-                >
+            <tr key={p.id} style={styles.row}>
+              <td style={styles.cell}>{p.id}</td>
+              <td style={styles.cell}>{p.name}</td>
+              <td style={styles.cell}>{p.type}</td>
+              <td style={styles.cell}>{p.sku}</td>
+              <td style={styles.cell}>{p.quantity}</td>
+              <td style={styles.cell}>₹{p.price}</td>
+              <td style={styles.cell}>
+                <button style={styles.updateBtn} onClick={() => navigate(`/update/${p.id}`)}>
                   Update Qty
                 </button>
               </td>
@@ -115,3 +91,82 @@ const ProductList = () => {
 };
 
 export default ProductList;
+
+const styles = {
+  container: {
+    container: {
+    width: "100vw",
+    height: "100vh",
+    padding: "2rem",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    backgroundColor: "#f8f9fa",
+    overflowX: "auto",
+  },
+  },
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "1.5rem",
+  },
+  title: {
+    fontSize: "1.8rem",
+    margin: 0,
+    color: "#ccc",
+  },
+  addBtn: {
+    padding: "10px 16px",
+    backgroundColor: "#2196F3",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    marginRight: "10px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+  logoutBtn: {
+    padding: "10px 16px",
+    backgroundColor: "#f44336",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+  table: {
+    width: "100%",
+    backgroundColor: "white",
+    boxShadow: "0 0 10px rgba(0,0,0,0.05)",
+    borderRadius: "10px",
+    overflow: "hidden",
+  },
+  theadRow: {
+    backgroundColor: "#343a40",
+    color: "white",
+  },
+  th: {
+    padding: "12px",
+    textAlign: "left" as const,
+  },
+  row: {
+    borderBottom: "1px solid #ddd",
+    transition: "background-color 0.2s ease",
+  },
+  cell: {
+    padding: "12px",
+    color: "#333",
+  },
+  updateBtn: {
+    padding: "6px 12px",
+    backgroundColor: "#ff9800",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "0.9rem",
+  },
+  error: {
+    color: "red",
+    marginBottom: "1rem",
+  },
+};

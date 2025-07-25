@@ -19,15 +19,15 @@ api.interceptors.request.use((config) => {
 const token = localStorage.getItem('access_token');
 
 export const RegisterUser = async (data: { username: string; password: string }) => {
-  return api.post('/api/register/', data);
+  return api.post('/register/', data);
 };
 
 export const LoginUser = async (data: { username: string; password: string }) => {
-  return api.post('/api/login/', data);
+  return api.post('/login/', data);
 };
 
 export const GetProducts = async () => {
-  return api.get('/api/products/', {
+  return api.get('/products/', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -35,7 +35,7 @@ export const GetProducts = async () => {
 };
 
 export const LogoutUser = async (refresh_token: string) => {
-  return api.post('/api/logout/', { refresh_token }, {
+  return api.post('/logout/', { refresh_token }, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -43,7 +43,7 @@ export const LogoutUser = async (refresh_token: string) => {
 };
 
 export const addProduct = async (payload: { name: string; type: string; sku: string; image_url: string; description: string; quantity: number; price: number }) => {
-  return api.post('/api/products/', payload, {
+  return api.post('/products/', payload, {
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,
@@ -52,7 +52,7 @@ export const addProduct = async (payload: { name: string; type: string; sku: str
 };
 
 export const UpdateProductQuantity = async (id: number, quantity: number) => {
-  return api.patch(`/api/products/${id}/quantity/`, { quantity }, {
+  return api.patch(`/products/${id}/quantity/`, { quantity }, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
