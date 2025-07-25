@@ -62,3 +62,28 @@ class ProductCreateView(generics.CreateAPIView):
             "message": "Product created successfully"
         }
         return response
+
+
+class UpdateProductQuantityView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, pk):
+        try:
+            product = Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        quantity = request.data.get("quantity")
+
+        if quantity is None or not isinstance(quantity, int):
+            return Response({"error": "Invalid or missing quantity"}, status=status.HTTP_400_BAD_REQUEST)
+
+        product.quantity = quantity
+        product.save()
+
+        return Response({
+            "id": product.id,
+            "name": product.name,
+            "quantity": product.quantity,
+            "message": "Quantity updated successfully"
+        }, status=status.HTTP_200_OK)
