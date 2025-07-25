@@ -13,4 +13,8 @@ export const RegisterUser = async (data: { username: string; password: string })
   return api.post('/api/register/', data);
 };
 
+export const LoginUser = async (data: { username: string; password: string }) => {
+  return api.post('/api/login/', data);
+};
+
 export default api;

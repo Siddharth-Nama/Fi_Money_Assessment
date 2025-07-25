@@ -28,34 +28,74 @@ const Register = () => {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "auto", paddingTop: "5rem" }}>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
+    <div style={styles.container}>
+      <h2 style={styles.heading}>Register</h2>
+      <form onSubmit={handleRegister} style={styles.form}>
         <input
           required
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          style={styles.input}
         />
-        <br />
-        <br />
         <input
           type="password"
           placeholder="Password"
           value={password}
           required
           onChange={(e) => setPassword(e.target.value)}
+          style={styles.input}
         />
-        <br />
-        <br />
-        <button type="submit" onClick={handleRegister}>
+        <button type="submit" style={styles.button}>
           Register
         </button>
       </form>
-      <p>{message}</p>
+      <p style={styles.message}>{message}</p>
     </div>
   );
+};
+
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    maxWidth: 400,
+    margin: "auto",
+    paddingTop: "5rem",
+    padding: "2rem",
+    borderRadius: "8px",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+  },
+  heading: {
+    textAlign: "center",
+    marginBottom: "1.5rem",
+    color: "#333",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+  },
+  input: {
+    padding: "0.75rem",
+    fontSize: "1rem",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+  },
+  button: {
+    padding: "0.75rem",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    fontSize: "1rem",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+  },
+  message: {
+    textAlign: "center",
+    marginTop: "1rem",
+    color: "red",
+  },
 };
 
 export default Register;
