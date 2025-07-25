@@ -68,7 +68,7 @@ class ProductListCreateView(generics.ListCreateAPIView):
 class UpdateProductQuantityView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def put(self, request, pk):
+    def patch(self, request, pk):
         try:
             product = Product.objects.get(pk=pk)
         except Product.DoesNotExist:

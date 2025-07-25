@@ -46,6 +46,15 @@ export const addProduct = async (payload: { name: string; type: string; sku: str
   return api.post('/api/products/', payload, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const UpdateProductQuantity = async (id: number, quantity: number) => {
+  return api.patch(`/api/products/${id}/`, { quantity }, {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
 };
