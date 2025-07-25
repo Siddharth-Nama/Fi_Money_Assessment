@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../../api/axios";
+import {addProduct} from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
@@ -29,21 +29,18 @@ const AddProduct = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("type", formData.type);
-    data.append("sku", formData.sku);
-    data.append("description", formData.description);
-    data.append("quantity", formData.quantity);
-    data.append("price", formData.price);
-    data.append("image_url", formData.image_url);
+    const data = {
+      name: formData.name,
+      type: formData.type,
+      sku: formData.sku,
+      description: formData.description,
+      quantity: Number(formData.quantity),
+      price: Number(formData.price),
+      image_url: formData.image_url,
+    };
 
     try {
-      const res = await axios.post("/api/products/", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await addProduct(data);
 
       setMessage(res.data.message || "Product added successfully");
       setTimeout(() => navigate("/products"), 1000);
