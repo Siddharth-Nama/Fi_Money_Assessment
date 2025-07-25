@@ -47,6 +47,13 @@ const ProductList = () => {
   return (
     <div style={{ padding: '2rem', fontFamily: 'Arial' }}>
       <h2>Product List</h2>
+      <button
+  onClick={() => navigate('/add')}
+  style={{ marginRight: '10px', background: '#2196F3', color: 'white', padding: '10px', border: 'none', borderRadius: '5px' }}
+>
+  + Add Product
+</button>
+
       <button onClick={handleLogout} style={{ float: 'right', background: '#f44336', color: 'white', padding: '10px', border: 'none', borderRadius: '5px' }}>
         Logout
       </button>

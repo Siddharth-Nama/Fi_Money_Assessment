@@ -2,6 +2,7 @@ import axios from 'axios';
 import { BASE_URL } from '../config/config';
 axios.defaults.withCredentials = true;
 
+
 const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
@@ -37,6 +38,14 @@ export const LogoutUser = async (refresh_token: string) => {
   return api.post('/api/logout/', { refresh_token }, {
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const addProduct = async (payload: { name: string; type: string; sku: string; image_url: string; description: string; quantity: number; price: number }) => {
+  return api.post('/api/products/', payload, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
     },
   });
 };
