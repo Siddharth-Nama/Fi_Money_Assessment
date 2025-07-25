@@ -45,6 +45,7 @@ CUSTOM_APPS = [
     'rest_framework_simplejwt',
     'inventory',
     'drf_yasg',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 INSTALLED_APPS = PREINSTALLED_APPS + CUSTOM_APPS
