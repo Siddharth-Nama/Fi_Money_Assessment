@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
+from .models import *
+from .serializers import *
+from rest_framework import generics
 
 class LoginView(APIView):
     def post(self, request):
@@ -46,3 +49,16 @@ class RegisterView(APIView):
 
         user = User.objects.create_user(username=username, password=password)
         return Response({"message": "User created successfully."}, status=status.HTTP_201_CREATED)
+
+class ProductCreateView(generics.CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        response.data = {
+            "id": response.data.get("id"),
+            "message": "Product created successfully"
+        }
+        return response
