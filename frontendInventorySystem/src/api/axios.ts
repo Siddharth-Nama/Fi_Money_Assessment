@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { BASE_URL } from '../config/config';
+axios.defaults.withCredentials = true;
 
-const instance = axios.create({
-  baseURL: BASE_URL
+const api = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
 });
 
-instance.interceptors.request.use(config => {
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+const token = localStorage.getItem('access_token');
 
-export default instance;
+export const RegisterUser = async (data: { username: string; password: string }) => {
+  return api.post('/api/register/', data);
+};
+
+export default api;

@@ -51,7 +51,7 @@ class RegisterView(APIView):
         user = User.objects.create_user(username=username, password=password)
         return Response({"message": "User created successfully."}, status=status.HTTP_201_CREATED)
 
-class ProductCreateView(generics.CreateAPIView):
+class ProductListCreateView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
@@ -94,9 +94,3 @@ class StandardResultsSetPagination(PageNumberPagination):
     page_size = 5
     page_size_query_param = 'page_size'
     max_page_size = 50
-
-class ProductListView(generics.ListAPIView):
-    queryset = Product.objects.all().order_by('id')
-    serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
-    pagination_class = StandardResultsSetPagination
