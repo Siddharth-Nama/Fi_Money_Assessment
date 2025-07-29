@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Register from './components/auth/register';
+import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import ProductList from './components/auth/ProductList';
 import AddProduct from './components/auth/AddProduct';

@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontendInventorySystem/Dockerfile
+    command: ["npm", "run", "dev", "--", "--host"]
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontendInventorySystem:/app
+      - frontend_node_modules:/app/node_modules
+    working_dir: /app
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./backendInventorySystem/Dockerfile
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:9000"  # 
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./backendInventorySystem:/app
+      - backend_sqlite_data:/app/db
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    working_dir: /app
+
+volumes:
+  backend_sqlite_data:
+  frontend_node_modules:
